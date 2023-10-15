@@ -6,13 +6,11 @@ import 'package:hakcgt/api_constants.dart';
 
 /// User Message
 class UserMessage extends StatelessWidget {
-  /// User message
   const UserMessage({
-    super.key,
+    Key? key,
     required this.text,
-  });
+  }) : super(key: key);
 
-  /// User message text.
   final String text;
 
   @override
@@ -25,34 +23,44 @@ class UserMessage extends StatelessWidget {
         children: [
           Expanded(
             child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: CachedNetworkImage(
-                  imageUrl: gravatar.imageUrl(),
+              padding: const EdgeInsets.all(8),
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xFFD8D8D8), // Light gray circle
+                ),
+                child: Image.asset(
+                  'images/fairy2.png', // Replace with your local image
                   width: 40,
                   height: 40,
-                  fit: BoxFit.cover,
-                )),
+
+                ),
+              ),
+            ),
           ),
           Expanded(
             flex: 5,
             child: Padding(
               padding: const EdgeInsets.only(
                 left: 3,
-                top: 8,
+                top: 10,
               ),
               child: SizedBox(
-                height: 100,
+                height: 40,
                 child: SelectionArea(
                   onSelectionChanged: (content) async {
                     if (content != null) {
                       await Clipboard.setData(
-                          ClipboardData(text: content.plainText));
+                        ClipboardData(text: content.plainText),
+                      );
                     }
                   },
                   child: Text(
                     text,
-                    style: const TextStyle(
-                      color: Color(0xffd1d5db),
+                    style: TextStyle(
+                      color: Color(0xFFE0E0E0), // Light text color
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
                     ),

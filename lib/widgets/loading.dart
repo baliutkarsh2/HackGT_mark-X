@@ -24,7 +24,7 @@ class Loading extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                color: const Color(0xff0fa37f),
+                color: const Color(0xff444654),
                 padding: const EdgeInsets.all(3),
                 child: SvgPicture.asset(
                   'images/ai-avatar.svg',
@@ -39,7 +39,7 @@ class Loading extends StatelessWidget {
             child: Text(
               text,
               style: const TextStyle(
-                color: Color(0xffd1d5db),
+                color: Color(0xffffffff),
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
               ),

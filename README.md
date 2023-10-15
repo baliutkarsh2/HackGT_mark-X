@@ -1,4 +1,4 @@
-# hakcgt
+# HackGT
 
 hackgt
 

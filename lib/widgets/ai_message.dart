@@ -13,14 +13,11 @@ enum RenderingState {
 
 /// AI Message class
 class AiMessage extends StatefulWidget {
-
-  /// Constructor
   const AiMessage({
-    super.key,
+    Key? key,
     required this.text,
-  });
+  }) : super(key: key);
 
-  /// Message text
   final String text;
 
   @override
@@ -36,25 +33,24 @@ class _AiMessageState extends State<AiMessage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xff444654),
+      color: Color(0xFF292929), // Dark background color, matching UserInput
       padding: const EdgeInsets.all(8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(10),
               child: Container(
-                color: const Color(0xff0fa37f),
-                padding: const EdgeInsets.all(3),
-                child: SvgPicture.asset(
-                  'images/ai-avatar.svg',
-                  height: 30,
-                  width: 30,
+                child: Image.asset(
+                  'images/fairy.png',
+                  width: 40,
+                  height: 90,
                 ),
               ),
             ),
           ),
+
           Expanded(
             flex: 5,
             child: renderingState != RenderingState.complete && !_hasRendered
@@ -63,8 +59,8 @@ class _AiMessageState extends State<AiMessage> {
               animatedTexts: [
                 TypewriterAnimatedText(
                   widget.text,
-                  textStyle: const TextStyle(
-                    color: Color(0xffd1d5db),
+                  textStyle: TextStyle(
+                    color: Color(0xFFE0E0E0), // Light text color
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                   ),
@@ -76,31 +72,34 @@ class _AiMessageState extends State<AiMessage> {
                   renderingState = RenderingState.complete;
                   renderSize = (textKey.currentContext != null
                       ? textKey.currentContext!.size
-                      : const Size(300, 100))!;
+                      : Size(300, 100))!;
                 });
               },
               totalRepeatCount: 1,
             )
                 : SizedBox(
-                width: renderSize.width,
-                height: renderSize.height,
-                child: SelectableText.rich(
-                  TextSpan(
-                      text: widget.text,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.white)),
-                  onSelectionChanged: (selection, cause) async {
-                    if (cause != null &&
-                        cause == SelectionChangedCause.longPress) {
-                      final selected = widget.text
-                          .substring(selection.start, selection.end);
-                      await Clipboard.setData(
-                          ClipboardData(text: selected));
-                    }
-                  },
-                )),
+              width: renderSize.width,
+              height: renderSize.height,
+              child: SelectableText.rich(
+                TextSpan(
+                  text: widget.text,
+                  style: TextStyle(
+                    color: Color(0xFFE0E0E0), // Light text color
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                onSelectionChanged: (selection, cause) async {
+                  if (cause != null &&
+                      cause == SelectionChangedCause.longPress) {
+                    final selected =
+                    widget.text.substring(selection.start, selection.end);
+                    await Clipboard.setData(
+                        ClipboardData(text: selected));
+                  }
+                },
+              ),
+            ),
           ),
         ],
       ),
